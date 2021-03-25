@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CdekSDK2;
 
 use CdekSDK2\Actions\Barcodes;
+use CdekSDK2\Actions\CalculatorTariffList;
 use CdekSDK2\Actions\Intakes;
 use CdekSDK2\Actions\Invoices;
 use CdekSDK2\Actions\LocationCities;
@@ -83,6 +84,11 @@ class Client
      * @var LocationCities
      */
     private $cities;
+
+    /**
+     * @var CalculatorTariffList
+     */
+    private $calculatorTariffList;
 
     /**
      * Client constructor.
@@ -299,6 +305,17 @@ class Client
     }
 
     /**
+     * @return CalculatorTariffList
+     */
+    public function calculatorTariffList(): CalculatorTariffList
+    {
+        if ($this->calculatorTariffList === null) {
+            $this->calculatorTariffList = new CalculatorTariffList($this->http_client, $this->serializer);
+        }
+        return $this->calculatorTariffList;
+    }
+
+    /**
      * @param ApiResponse $response
      * @param string $className
      * @return Response
@@ -324,15 +341,19 @@ class Client
     /**
      * @param ApiResponse $response
      * @param string $className
+     * @param bool $addItemsKey
      * @return CityList|RegionList|PickupPointList|WebHookList
-     * @throws \Exception
+     * @throws ParsingException
      */
-    public function formatResponseList(ApiResponse $response, string $className)
+    public function formatResponseList(ApiResponse $response, string $className, bool $addItemsKey = true)
     {
         if (class_exists($className)) {
-            $body = '{"items":' . $response->getBody() . '}';
-            $result = $this->serializer->deserialize($body, $className, 'json');
-            return $result;
+            if ($addItemsKey) {
+                $body = '{"items":' . $response->getBody() . '}';
+            } else {
+                $body = $response->getBody();
+            }
+            return $this->serializer->deserialize($body, $className, 'json');
         }
 
         throw new ParsingException('Class ' . $className . ' not found');
