@@ -15,6 +15,7 @@ use CdekSDK2\Actions\Orders;
 use CdekSDK2\Actions\Webhooks;
 use CdekSDK2\Dto\CityList;
 use CdekSDK2\Dto\RegionList;
+use CdekSDK2\Dto\TariffCodes;
 use CdekSDK2\Dto\WebHookList;
 use CdekSDK2\Dto\PickupPointList;
 use CdekSDK2\Dto\Response;
@@ -342,7 +343,7 @@ class Client
      * @param ApiResponse $response
      * @param string $className
      * @param bool $addItemsKey
-     * @return CityList|RegionList|PickupPointList|WebHookList
+     * @return CityList|RegionList|PickupPointList|WebHookList|TariffCodes
      * @throws ParsingException
      */
     public function formatResponseList(ApiResponse $response, string $className, bool $addItemsKey = true)
