@@ -21,7 +21,7 @@ class Response
      * Информация о сущности, над которой выполняется запрос
      * (заказ, заявка, печатная форма, договоренность о доставке, подписка)
      * @Type("CdekSDK2\BaseTypes\WebHook")
-     * @var Barcode | Intake | Invoice | Order | WebHook | OrderInfo
+     * @var Barcode | Intake | Invoice | Order | WebHook | OrderInfo | Tariff
      */
     public $entity;
 

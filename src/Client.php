@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CdekSDK2;
 
 use CdekSDK2\Actions\Barcodes;
+use CdekSDK2\Actions\CalculatorTariff;
 use CdekSDK2\Actions\CalculatorTariffList;
 use CdekSDK2\Actions\Intakes;
 use CdekSDK2\Actions\Invoices;
@@ -90,6 +91,11 @@ class Client
      * @var CalculatorTariffList
      */
     private $calculatorTariffList;
+
+    /**
+     * @var CalculatorTariff
+     */
+    private $calculatorTariff;
 
     /**
      * Client constructor.
@@ -317,12 +323,24 @@ class Client
     }
 
     /**
+     * @return CalculatorTariff
+     */
+    public function calculatorTariff(): CalculatorTariff
+    {
+        if ($this->calculatorTariff === null) {
+            $this->calculatorTariff = new CalculatorTariff($this->http_client, $this->serializer);
+        }
+        return $this->calculatorTariff;
+    }
+
+    /**
      * @param ApiResponse $response
      * @param string $className
+     * @param string|null $isEntity
      * @return Response
-     * @throws \Exception
+     * @throws ParsingException
      */
-    public function formatResponse(ApiResponse $response, string $className): Response
+    public function formatResponse(ApiResponse $response, string $className, bool $isEntity = true): Response
     {
         if (class_exists($className)) {
             /* @var $result Response */
@@ -330,7 +348,8 @@ class Client
             $result->entity = null;
 
             $array_response = json_decode($response->getBody(), true);
-            $entity = $this->serializer->deserialize(json_encode($array_response['entity']), $className, 'json');
+            $response = $isEntity ? $array_response['entity'] : $array_response;
+            $entity = $this->serializer->deserialize(json_encode($response), $className, 'json');
             $result->entity = $entity;
 
             return $result;
@@ -342,17 +361,16 @@ class Client
     /**
      * @param ApiResponse $response
      * @param string $className
-     * @param bool $addItemsKey
+     * @param string|null $itemsKey
      * @return CityList|RegionList|PickupPointList|WebHookList|TariffCodes
      * @throws ParsingException
      */
-    public function formatResponseList(ApiResponse $response, string $className, bool $addItemsKey = true)
+    public function formatResponseList(ApiResponse $response, string $className, ?string $itemsKey = 'items')
     {
         if (class_exists($className)) {
-            if ($addItemsKey) {
-                $body = '{"items":' . $response->getBody() . '}';
-            } else {
-                $body = $response->getBody();
+            $body = $response->getBody();
+            if (null !== $itemsKey) {
+                $body = sprintf('{"%s": %s}', $itemsKey, $body);
             }
             return $this->serializer->deserialize($body, $className, 'json');
         }
