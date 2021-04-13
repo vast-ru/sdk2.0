@@ -59,6 +59,14 @@ class Base
     }
 
     /**
+     * @return string[]
+     */
+    public function getValidationErrors(): array
+    {
+        return $this->validationErrors ?? [];
+    }
+
+    /**
      * Создание объекта из массива
      * @param array $data
      * @return Base
