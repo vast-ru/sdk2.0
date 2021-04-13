@@ -53,7 +53,7 @@ class Base
         $validation = $validator->validate(get_object_vars($this), $this->rules);
 
         if ($validation->fails()) {
-            $this->validationErrors[] = $validation->errors()->all();
+            $this->validationErrors = $validation->errors()->all();
         }
         return $validation->passes();
     }
