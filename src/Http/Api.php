@@ -194,6 +194,17 @@ class Api
 
     /**
      * @param string $url
+     * @param array $params
+     * @return ApiResponse
+     * @throws RequestException
+     */
+    public function patch(string $url, array $params = []): ApiResponse
+    {
+        return $this->request('PATCH', $url, $params);
+    }
+
+    /**
+     * @param string $url
      * @return ApiResponse
      * @throws RequestException
      */
