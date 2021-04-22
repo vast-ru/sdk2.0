@@ -7,6 +7,7 @@ namespace CdekSDK2;
 use CdekSDK2\Actions\Barcodes;
 use CdekSDK2\Actions\CalculatorTariff;
 use CdekSDK2\Actions\CalculatorTariffList;
+use CdekSDK2\Actions\Deliveries;
 use CdekSDK2\Actions\Intakes;
 use CdekSDK2\Actions\Invoices;
 use CdekSDK2\Actions\LocationCities;
@@ -51,6 +52,11 @@ class Client
      * @var Orders
      */
     private $orders;
+
+    /**
+     * @var Deliveries
+     */
+    private $deliveries;
 
     /**
      * @var Intakes
@@ -243,6 +249,17 @@ class Client
             $this->orders = new Orders($this->http_client, $this->serializer);
         }
         return $this->orders;
+    }
+
+    /**
+     * @return Deliveries
+     */
+    public function deliveries(): Deliveries
+    {
+        if ($this->deliveries === null) {
+            $this->deliveries = new Deliveries($this->http_client, $this->serializer);
+        }
+        return $this->deliveries;
     }
 
     /**

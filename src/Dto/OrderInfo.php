@@ -11,7 +11,6 @@ use CdekSDK2\BaseTypes\Package;
 use CdekSDK2\BaseTypes\Seller;
 use CdekSDK2\BaseTypes\Services;
 use CdekSDK2\BaseTypes\Threshold;
-use JMS\Serializer\Annotation\SkipWhenEmpty;
 use JMS\Serializer\Annotation\Type;
 
 /**
