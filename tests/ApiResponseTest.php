@@ -18,11 +18,12 @@ class ApiResponseTest extends \PHPUnit\Framework\TestCase
 
     public function testConstruct()
     {
-        $responsePSR7 = new Response(401, [], '{"error": "Server Error","message": "App Message"}');
+        $responsePSR7 = new Response(401, ['Content-Type' => 'application/json'], '{"error": "Server Error","message": "App Message"}');
         /** @var ApiResponse $response */
         $response = new ApiResponse($responsePSR7);
         $this->assertFalse($response->isOk());
         $this->assertTrue($response->hasErrors());
+        $this->assertEquals('{"error": "Server Error","message": "App Message"}', $response->getBody());
     }
 
     public function testIsOk()
