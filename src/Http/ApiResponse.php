@@ -46,14 +46,7 @@ class ApiResponse
             ];
         } else {
             $this->status = $response->getStatusCode();
-            if (
-                $response->hasHeader('Content-type') &&
-                strpos(implode(',', $response->getHeader('Content-type')), 'json') !== false
-            ) {
-                $this->body = (string)$response->getBody()->getContents();
-            } else {
-                $this->body = (string)$response->getBody();
-            }
+            $this->body = (string)$response->getBody();
 
             if ($this->status > 299) {
                 $decode_body = json_decode($this->body, true);
