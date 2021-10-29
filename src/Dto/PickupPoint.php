@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace CdekSDK2\Dto;
 
+use CdekSDK2\BaseTypes\Dimensions;
 use CdekSDK2\BaseTypes\Location;
 use CdekSDK2\BaseTypes\Phone;
 use JMS\Serializer\Annotation\Type;
@@ -174,4 +175,11 @@ class PickupPoint
      * @var Phone[]
      */
     public $phones = [];
+
+    /**
+     * Перечень максимальных размеров ячеек (только для type = POSTAMAT)
+     * @Type("array<CdekSDK2\BaseTypes\Dimensions>")
+     * @var Dimensions[]
+     */
+    public $dimensions = [];
 }
