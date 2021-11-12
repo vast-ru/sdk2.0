@@ -14,6 +14,15 @@ class Location extends Base
 {
     /**
      * Код населенного пункта СДЭК
+     * Для метода "Информация о заказе"
+     * @Type("int")
+     * @var int
+     */
+    public $code;
+
+    /**
+     * Код населенного пункта СДЭК
+     * Для метода "Список офисов"
      * @Type("int")
      * @var int
      */
@@ -114,7 +123,8 @@ class Location extends Base
         parent::__construct($param);
         $this->rules = [
             'address' => 'required',
-            'code' => 'numeric',
+            'code' => 'required_without:city_code|numeric',
+            'city_code' => 'required_without:code|numeric',
             'fias_guid' => 'alpha',
             'postal_code' => 'alpha',
             'longitude' => 'numeric',
