@@ -43,4 +43,13 @@ class DeliveryDetail
      * @var float
      */
     public $total_sum;
+
+    /**
+     * Тип оплаты:
+     * CARD - картой
+     * CASH - наличными
+     * @Type("string")
+     * @var string
+     */
+    public $type;
 }
