@@ -43,4 +43,11 @@ class DeliveryDetail
      * @var float
      */
     public $total_sum;
+
+    /**
+     * Тип оплаты наложенного платежа получателем
+     * @Type("CdekSDK2\Dto\PaymentInfo")
+     * @var PaymentInfo
+     */
+    public $payment_info;
 }
