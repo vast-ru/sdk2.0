@@ -57,6 +57,12 @@ class ApiResponse
                     ];
                 } elseif (isset($decode_body['errors'])) {
                     $this->errors = $decode_body['errors'];
+                } elseif (isset($decode_body['requests'])) {
+                    /** @var array $lastRequest */
+                    $lastRequest = end($decode_body['requests']);
+                    if (isset($lastRequest['errors'])) {
+                        $this->errors = $lastRequest['errors'];
+                    }
                 }
             }
         }
