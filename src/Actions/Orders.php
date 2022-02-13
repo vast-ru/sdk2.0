@@ -54,4 +54,16 @@ class Orders extends ActionsWithDelete
         $slug = static::URL . '?cdek_number=' . $number;
         return $this->http_client->get($slug);
     }
+
+    /**
+     * Получить данные по номеру заказа СДЭК
+     * @param string $number
+     * @return ApiResponse
+     * @throws RequestException
+     */
+    public function getByIMNumber(string $number): ApiResponse
+    {
+        $slug = static::URL . '?im_number=' . $number;
+        return $this->http_client->get($slug);
+    }
 }
