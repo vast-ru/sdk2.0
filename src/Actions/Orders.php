@@ -56,11 +56,13 @@ class Orders extends ActionsWithDelete
     }
 
     /**
-     * Получить данные по номеру заказа СДЭК
+     * Получить данные по номеру заказа ИС
      * @param string $number
      * @return ApiResponse
      * @throws RequestException
      */
+    /* https://confluence.cdek.ru/pages/viewpage.action?pageId=29923975 */
+
     public function getByIMNumber(string $number): ApiResponse
     {
         $slug = static::URL . '?im_number=' . $number;
