@@ -42,8 +42,8 @@ class OrderInfo
 
     /**
      * Номер заказа в системе СДЭК
-     * @Type("int")
-     * @var int
+     * @Type("string")
+     * @var string
      */
     public $cdek_number;
 
