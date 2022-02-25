@@ -6,7 +6,6 @@ namespace CdekSDK2\BaseTypes;
 
 use JMS\Serializer\Annotation\Type;
 use Rakit\Validation\Validator;
-use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Class Base
@@ -16,7 +15,7 @@ class Base
 {
     /**
      * Правила для валидаций
-     * @Exclude()
+     * @JMS\Serializer\Annotation\Exclude()
      * @Type("array")
      * @var array
      */
@@ -24,7 +23,7 @@ class Base
 
     /**
      * Ошибки валидации
-     * @Exclude()
+     * @JMS\Serializer\Annotation\Exclude()
      * @Type("array")
      * @var array
      */
