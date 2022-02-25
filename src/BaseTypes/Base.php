@@ -17,7 +17,6 @@ class Base
     /**
      * Правила для валидаций
      * @Serializer\Exclude()
-     * @Type("array")
      * @var array
      */
     protected $rules = [];
