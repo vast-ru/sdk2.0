@@ -54,4 +54,18 @@ class Orders extends ActionsWithDelete
         $slug = static::URL . '?cdek_number=' . $number;
         return $this->http_client->get($slug);
     }
+
+    /**
+     * Получить данные по номеру заказа ИС
+     * @param string $number
+     * @return ApiResponse
+     * @throws RequestException
+     */
+    /* https://confluence.cdek.ru/pages/viewpage.action?pageId=29923975 */
+
+    public function getByIMNumber(string $number): ApiResponse
+    {
+        $slug = static::URL . '?im_number=' . $number;
+        return $this->http_client->get($slug);
+    }
 }
